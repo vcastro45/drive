@@ -6,28 +6,34 @@
 
 <script lang="ts">
   import { Component, Vue, Watch } from 'vue-property-decorator'
+  import { GetterMap, MutationMap } from '@/store/map'
+  import LatLng = google.maps.LatLng
 
   @Component
   export default class Map extends Vue {
 
-    geolocation: Position | null = null
+    @GetterMap
+    mapLatLng: LatLng
+    @MutationMap
+    setMapLatLng: (latLng: LatLng) => any
+
     map: any = null
 
     getLocation (): void {
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position: Position) => {
-          this.geolocation = position
+          this.setMapLatLng(new google.maps.LatLng(position.coords.latitude, position.coords.longitude))
         })
       } else {
         console.log('Geolocation is not supported by this browser.')
       }
     }
 
-    @Watch('geolocation', { immediate: true })
+    @Watch('mapLatLng', { immediate: true })
     onGeolocationChanged (newVal: Position | null) {
-      if (newVal) {
-        this.map.setCenter(new google.maps.LatLng(newVal.coords.latitude, newVal.coords.longitude))
+      if (newVal && this.map) {
+        this.map.setCenter(this.mapLatLng)
       }
     }
 
@@ -38,7 +44,7 @@
           streetViewControl: false,
           fullscreenControl: false,
           mapTypeControl: false,
-          center: new google.maps.LatLng(47.9072706, 1.903288)
+          center: this.mapLatLng
         }
 
         this.map = new google.maps.Map((this as any).$refs.GMap, options)

@@ -1,7 +1,8 @@
 <template>
   <v-navigation-drawer
     v-model="drawer"
-    absolute
+    fixed
+    temporary
   >
     <v-toolbar flat>
       <v-list>
@@ -34,22 +35,11 @@
     value: boolean
 
     drawer: boolean = false
-
-    @Watch('value', { immediate: true })
-    onOpenChanged (newVal: boolean): void {
-      this.drawer = newVal
-    }
-
-    @Watch('drawer')
-      onDrawerChanged (newVal: boolean): void {
-      this.$emit('input', newVal)
-    }
-
     items: any[] = [
       {
         icon: 'mdi-home',
         label: 'Accueil',
-        action: () => { this.$router.push('Home') }
+        action: () => { this.goHome() }
       },
       {
         icon: 'mdi-history',
@@ -62,6 +52,20 @@
         action: () => { console.log('Devenir chauffeur') }
       }
     ]
+
+    goHome (): void {
+      this.$router.push({ name: 'Home' })
+    }
+
+    @Watch('value', { immediate: true })
+    onOpenChanged (newVal: boolean): void {
+      this.drawer = newVal
+    }
+
+    @Watch('drawer')
+      onDrawerChanged (newVal: boolean): void {
+      this.$emit('input', newVal)
+    }
   }
 </script>
 

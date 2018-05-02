@@ -7,6 +7,8 @@ import '@mdi/font/css/materialdesignicons.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import './hooks' // This must be imported before any component
 import {} from '@types/googlemaps'
+import services from './services'
+import store from './store'
 
 import App from './App.vue'
 import router from './router'
@@ -22,7 +24,7 @@ Vue.use(Vuetify, {
 // tslint:disable-next-line:no-unused-expression
 new Vue({
   router,
-  el: '#app',
-  components: { App },
-  template: '<App/>'
-})
+  store,
+  provide: { ...services },
+  render: (h) => h(App)
+}).$mount('#app')

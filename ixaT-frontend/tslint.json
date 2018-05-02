@@ -1,6 +1,12 @@
 {
-  "extends": "tslint-config-standard",
+  "defaultSeverity": "warning",
+  "extends": [
+    "tslint-config-standard"
+  ],
   "rules": {
-    "indent": [true, "spaces", 2]
+    "member-ordering": false,
+    "ter-indent": [true, 2],
+    "indent": [true, "spaces", 2],
+    "semicolon": [true, "never"]
   }
 }

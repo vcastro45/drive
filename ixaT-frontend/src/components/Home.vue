@@ -17,7 +17,7 @@
             <v-tab-item
               id="/"
             >
-              <trajet/>
+              <trajet @journey=""/>
             </v-tab-item>
 
           <v-tab-item

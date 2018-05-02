@@ -1,24 +1,36 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "sourceMap": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es6",
-    "module": "es2015",
-    "moduleResolution": "node",
-    "lib": ["dom", "es2017"],
+    "target": "esnext",
+    "module": "esnext",
     "strict": true,
+    "strictPropertyInitialization": false, // Still not supported by PHPStorm.
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "lib": ["dom", "es6", "es2016.array.include", "es2017.object"],
     "types": [
-
       "node",
-      "vue"
     ],
     "typeRoots": [
-      "./node_modules/@types"
-    ]
-  }
+      "./src/@types/",
+      "./node_modules/@types/"
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "test/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
