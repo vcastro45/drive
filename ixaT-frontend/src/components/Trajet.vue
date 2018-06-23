@@ -38,6 +38,7 @@
   import { GetterMap, MutationMap } from '@/store/map'
   import LatLng = google.maps.LatLng
   import AutocompletePrediction = google.maps.places.AutocompletePrediction
+  import DirectionsService = google.maps.DirectionsService
 
   @Component
   export default class Trajet extends Vue {
@@ -116,6 +117,9 @@
     onJourneyChanged () {
       if (this.journey.from !== null && this.journey.to !== null) {
         this.setMapJourney(this.journey as { from: AutocompletePrediction, to: AutocompletePrediction })
+          console.log(this.journey.from.location())
+        // let directionsService = new DirectionsService()
+        // let direction = directionsService.route({})
       }
     }
   }
